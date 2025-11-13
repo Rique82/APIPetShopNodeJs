@@ -6,19 +6,36 @@ class ServiceCliente {
         return Cliente.findAll()
     }
 
-    PegarUm() {
+    async PegarUm(id) {
+
+        const cliente = await Cliente.findByPk(id)
+
+        return cliente
 
     }
 
-    Criar(nome, telefone) {
+    async Criar(nome, telefone) {
+
+        await Cliente.create({ nome, telefone })
+
+    }
+
+    async Alterar(id, nome, telefone) {
+
+        const cliente = await Cliente.findByPk(id)
+
+        cliente.nome = nome
+        cliente.telefone = telefone
+
+        await cliente.save()
         
     }
 
-    Alterar() {
+    async Deletar(id) {
 
-    }
+        const cliente = await Cliente.findByPk(id)
 
-    Deletar() {
+        cliente.destroy()
 
     }
 

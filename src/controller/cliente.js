@@ -5,7 +5,7 @@ class ControllerCliente{
     async PegarTodos(req,res){
         try {
             const clientes = await ServiceCliente.PegarTodos()
-            res.status(200).send({clientes})
+            res.status(200).send({ clientes })
         } catch (error) {
             res.status(500).send({ msg: error.message })
         }
@@ -13,6 +13,9 @@ class ControllerCliente{
 
     async PegarUm(req,res){
         try {
+            const id = req.params.id
+            const cliente = await ServiceCliente.PegarUm(id)
+            res.status(200).send({ cliente })
         } catch (error) {
             res.status(500).send({ msg: error.message })
         }
@@ -30,7 +33,10 @@ class ControllerCliente{
 
     async Alterar(req,res){
         try {
-            
+            const id = req.params.id
+            const {nome, telefone} = req.body
+            await ServiceCliente.Alterar(id, nome, telefone)
+            res.status(200).send("alterado com sucesso")
         } catch (error) {
             res.status(500).send({ msg: error.message })
         }
@@ -38,7 +44,9 @@ class ControllerCliente{
 
     async Deletar(req,res){
         try {
-            
+            const id = req.params.id
+            await ServiceCliente.Deletar(id)
+            res.status(200).send("deletado com sucesso")
         } catch (error) {
             res.status(500).send({ msg: error.message })
         }
